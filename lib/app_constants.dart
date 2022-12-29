@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+enum KeyTypes {
+  action,
+  operator,
+  digit,
+}
+
 class KColors {
   static final actionColor = Colors.blue[300];
   static const operatorColor = Colors.orange;
@@ -8,24 +14,24 @@ class KColors {
 
 class CalculatorKeys {
   static List calculatorKeys = [
-    ['AC', KColors.actionColor],
-    ['+/-', KColors.actionColor],
-    ['%', KColors.actionColor],
-    ['/', KColors.operatorColor],
-    ['7', KColors.primaryColor],
-    ['8', KColors.primaryColor],
-    ['9', KColors.primaryColor],
-    ['x', KColors.operatorColor],
-    ['4', KColors.primaryColor],
-    ['5', KColors.primaryColor],
-    ['6', KColors.primaryColor],
-    ['-', KColors.operatorColor],
-    ['1', KColors.primaryColor],
-    ['2', KColors.primaryColor],
-    ['3', KColors.primaryColor],
-    ['+', KColors.operatorColor],
-    ['0', KColors.primaryColor],
-    ['-', KColors.primaryColor],
-    ['=', KColors.operatorColor],
+    ['AC', KColors.actionColor, KeyTypes.action],
+    ['+/-', KColors.actionColor, KeyTypes.action],
+    ['%', KColors.actionColor, KeyTypes.action],
+    ['/', KColors.operatorColor, KeyTypes.operator],
+    ['7', KColors.primaryColor, KeyTypes.digit],
+    ['8', KColors.primaryColor, KeyTypes.digit],
+    ['9', KColors.primaryColor, KeyTypes.digit],
+    ['x', KColors.operatorColor, KeyTypes.operator],
+    ['4', KColors.primaryColor, KeyTypes.digit],
+    ['5', KColors.primaryColor, KeyTypes.digit],
+    ['6', KColors.primaryColor, KeyTypes.digit],
+    ['-', KColors.operatorColor, KeyTypes.operator],
+    ['1', KColors.primaryColor, KeyTypes.digit],
+    ['2', KColors.primaryColor, KeyTypes.digit],
+    ['3', KColors.primaryColor, KeyTypes.digit],
+    ['+', KColors.operatorColor, KeyTypes.operator],
+    ['0', KColors.primaryColor, KeyTypes.digit],
+    ['-', KColors.primaryColor, KeyTypes.digit],
+    ['=', KColors.operatorColor, KeyTypes.operator],
   ];
 }
