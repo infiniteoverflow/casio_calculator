@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
     this.child,
     this.buttonType,
     this.buttonValue,
+    this.color,
   });
 
   final double? height;
@@ -23,6 +24,7 @@ class CustomButton extends StatelessWidget {
   final Widget? child;
   final KeyTypes? buttonType;
   final String? buttonValue;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class CustomButton extends StatelessWidget {
         height: height ?? 80,
         width: width ?? 80,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: color ?? Colors.white,
           borderRadius: BorderRadius.circular(borderRadius ?? 10.0),
           border: Border.all(
             color: Colors.black,

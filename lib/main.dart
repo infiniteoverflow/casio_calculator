@@ -108,52 +108,68 @@ class _MyHomePageState extends State<MyHomePage> {
                       left: 8,
                       right: 16,
                     ),
-                    child: CustomButton(
-                      width: MediaQuery.of(context).size.width,
-                      borderRadius: 0.0,
-                      shadowOffset: const Offset(8, 8),
-                      borderWidth: 6,
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: ValueListenableBuilder(
-                                valueListenable: Notifiers.mainDigitsNotifier,
-                                builder: (context, value, _) {
-                                  String digits = value.toString();
+                    child: Stack(
+                      children: [
+                        CustomPaint(
+                          painter: InnerCard(),
+                          child: Container(),
+                        ),
+                        CustomPaint(
+                          painter: OuterCard(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Spacer(),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 16.0),
+                                  child: ValueListenableBuilder(
+                                    valueListenable:
+                                        Notifiers.mainDigitsNotifier,
+                                    builder: (context, value, _) {
+                                      String digits = value.toString();
 
-                                  return Text(
-                                    value.toString(),
-                                    style: GoogleFonts.bungee(
-                                      fontSize: 70,
-                                      fontWeight: FontWeight.bold,
-                                      color: digits == '0'
-                                          ? Colors.grey
-                                          : Colors.black,
-                                    ),
-                                  );
-                                },
+                                      return Text(
+                                        value.toString(),
+                                        style: GoogleFonts.bungee(
+                                          fontSize: 70,
+                                          fontWeight: FontWeight.bold,
+                                          color: digits == '0'
+                                              ? Colors.grey
+                                              : Colors.black,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ),
-                            ),
+                              Container(
+                                height: 10,
+                                width: MediaQuery.of(context).size.width - 34,
+                                color: KColors.actionColor?.withOpacity(0.5),
+                              ),
+                              Container(
+                                height: 10,
+                                width: MediaQuery.of(context).size.width - 34,
+                                color: KColors.operatorColor.withOpacity(0.5),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                            ],
                           ),
-                          Container(
-                            height: 10,
-                            color: KColors.actionColor?.withOpacity(0.5),
-                          ),
-                          Container(
-                            height: 10,
-                            color: KColors.operatorColor.withOpacity(0.5),
-                          )
-                        ],
-                      ),
+                        ),
+                        CustomPaint(
+                          painter: BorderCanvas(),
+                          child: Container(),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 18,
+                  height: 0,
                 ),
               ],
             ),
@@ -196,4 +212,117 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+class OuterCard extends CustomPainter {
+  OuterCard({
+    this.backgroundColor,
+  });
+
+  final Color? backgroundColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Gradient gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        backgroundColor ?? Colors.white,
+        backgroundColor ?? Colors.white
+      ],
+      tileMode: TileMode.clamp,
+    );
+
+    final Rect colorBounds = Rect.fromLTRB(0, 0, size.width, size.height);
+    final Paint paint = Paint()
+      ..shader = gradient.createShader(colorBounds)
+      ..strokeWidth = 5;
+
+    Path path = Path();
+    path.moveTo(60, 0);
+    path.lineTo(0, 60);
+    path.lineTo(0, 210);
+    path.lineTo(size.width - 10, 210);
+    path.lineTo(size.width - 10, 0);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class BorderCanvas extends CustomPainter {
+  BorderCanvas({
+    this.backgroundColor,
+  });
+
+  final Color? backgroundColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Gradient gradient = const LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Colors.black, Colors.black],
+      tileMode: TileMode.clamp,
+    );
+
+    final Rect colorBounds = Rect.fromLTRB(0, 0, size.width, size.height);
+    final Paint paint = Paint()
+      ..shader = gradient.createShader(colorBounds)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6;
+
+    Path path = Path();
+    path.moveTo(60, 0);
+    path.lineTo(0, 60);
+    path.lineTo(0, 210);
+    path.lineTo(size.width - 10, 210);
+    path.lineTo(size.width - 10, 0);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class InnerCard extends CustomPainter {
+  InnerCard({
+    this.backgroundColor,
+  });
+
+  final Color? backgroundColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Gradient gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        backgroundColor ?? Colors.black,
+        backgroundColor ?? Colors.black
+      ],
+      tileMode: TileMode.clamp,
+    );
+
+    final Rect colorBounds = Rect.fromLTRB(0, 0, size.width, size.height);
+    final Paint paint = Paint()..shader = gradient.createShader(colorBounds);
+
+    Path path = Path();
+    path.moveTo(60, 10);
+    path.lineTo(10, 60);
+    path.lineTo(10, 220);
+    path.lineTo(size.width, 220);
+    path.lineTo(size.width, 10);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
