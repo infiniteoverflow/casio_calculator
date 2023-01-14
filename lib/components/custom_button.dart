@@ -35,6 +35,8 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // TODO: Make the code less messier :P
+
         String screenValue = Notifiers.screenDisplayNotifier.value;
 
         switch (buttonType) {
