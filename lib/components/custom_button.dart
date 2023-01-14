@@ -41,22 +41,30 @@ class CustomButton extends StatelessWidget {
           case KeyTypes.action:
             if (buttonValue == 'AC') {
               Notifiers.screenDisplayNotifier.value = '';
-              Notifiers.historyDisplayNotifier.value.clear();
+              Notifiers.historyDisplayNotifier.value = [];
             }
             break;
           case KeyTypes.operator:
             String displayValue = Notifiers.screenDisplayNotifier.value;
             Notifiers.screenDisplayNotifier.value =
                 buttonValue == '=' ? '' : buttonValue;
-            Notifiers.historyDisplayNotifier.value.add(displayValue);
+
+            List<String> result = Notifiers.historyDisplayNotifier.value;
+            result.add(displayValue);
+            Notifiers.historyDisplayNotifier.value = result;
 
             if (buttonValue == '=') {
               Notifiers.screenDisplayNotifier.value = OperationUtil.total(
                 Notifiers.historyDisplayNotifier.value,
               );
-              Notifiers.historyDisplayNotifier.value.clear();
+              Notifiers.historyDisplayNotifier.value = [];
             } else {
-              Notifiers.historyDisplayNotifier.value.add(buttonValue!);
+              List<String> result = [];
+              for (var element in Notifiers.historyDisplayNotifier.value) {
+                result.add(element);
+              }
+              result.add(buttonValue!);
+              Notifiers.historyDisplayNotifier.value = result;
             }
             break;
           case KeyTypes.digit:

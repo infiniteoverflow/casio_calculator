@@ -8,6 +8,5 @@ class Notifiers {
 
   /// This notifier is used to show the history of operations done
   /// by the user.
-  static final ValueNotifier<List<String>> historyDisplayNotifier =
-      ValueNotifier([]);
+  static ValueNotifier<List<String>> historyDisplayNotifier = ValueNotifier([]);
 }

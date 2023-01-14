@@ -100,6 +100,40 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0).copyWith(
+                                    left: 56,
+                                    right: 20,
+                                  ),
+                                  child: ValueListenableBuilder(
+                                    valueListenable:
+                                        Notifiers.historyDisplayNotifier,
+                                    builder: (context, value, child) {
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          ...List.generate(
+                                            value.length,
+                                            (index) => FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                value[index],
+                                                style: GoogleFonts.bungee(
+                                                  fontSize: 40,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                               const Spacer(),
                               Align(
                                 alignment: Alignment.centerRight,
