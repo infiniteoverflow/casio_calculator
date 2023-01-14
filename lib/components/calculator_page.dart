@@ -85,8 +85,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0).copyWith(
-                      left: 8,
-                      right: 16,
+                      left: 10,
+                      right: 8,
                     ),
                     child: Stack(
                       children: [
@@ -103,19 +103,20 @@ class _CalculatorPageState extends State<CalculatorPage> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: 16.0),
+                                  padding: const EdgeInsets.only(right: 20.0),
                                   child: ValueListenableBuilder(
                                     valueListenable:
-                                        Notifiers.mainDigitsNotifier,
+                                        Notifiers.screenDisplayNotifier,
                                     builder: (context, value, _) {
-                                      String digits = value.toString();
+                                      String screenDisplayText =
+                                          value == '' ? '0' : value;
 
                                       return Text(
-                                        value.toString(),
+                                        screenDisplayText,
                                         style: GoogleFonts.bungee(
                                           fontSize: 70,
                                           fontWeight: FontWeight.bold,
-                                          color: digits == '0'
+                                          color: screenDisplayText == '0'
                                               ? Colors.grey
                                               : Colors.black,
                                         ),
@@ -126,12 +127,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
                               ),
                               Container(
                                 height: 10,
-                                width: MediaQuery.of(context).size.width - 34,
+                                width: MediaQuery.of(context).size.width - 30,
                                 color: KColors.actionColor?.withOpacity(0.5),
                               ),
                               Container(
                                 height: 10,
-                                width: MediaQuery.of(context).size.width - 34,
+                                width: MediaQuery.of(context).size.width - 30,
                                 color: KColors.operatorColor.withOpacity(0.5),
                               ),
                               const SizedBox(

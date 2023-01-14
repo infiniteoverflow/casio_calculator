@@ -31,7 +31,7 @@ class CalculatorKeys {
     ['3', KColors.primaryColor, KeyTypes.digit],
     ['+', KColors.operatorColor, KeyTypes.operator],
     ['0', KColors.primaryColor, KeyTypes.digit],
-    ['-', KColors.primaryColor, KeyTypes.digit],
+    ['.', KColors.primaryColor, KeyTypes.digit],
     ['=', KColors.operatorColor, KeyTypes.operator],
   ];
 }

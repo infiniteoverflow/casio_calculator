@@ -30,25 +30,23 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        String screenValue = Notifiers.mainDigitsNotifier.value.toString();
+        String screenValue = Notifiers.screenDisplayNotifier.value.toString();
+
         switch (buttonType) {
           case KeyTypes.action:
             if (buttonValue == 'AC') {
-              Notifiers.mainDigitsNotifier.value = 0;
+              Notifiers.screenDisplayNotifier.value = '';
             }
             break;
           case KeyTypes.operator:
-            // TODO: Handle this case.
             break;
           case KeyTypes.digit:
-            if (screenValue == '0') {
-              Notifiers.mainDigitsNotifier.value =
-                  int.parse(buttonValue ?? '0');
-            } else {
-              Notifiers.mainDigitsNotifier.value = int.parse(
-                  Notifiers.mainDigitsNotifier.value.toString() +
-                      (buttonValue ?? ''));
+            if (buttonValue == '.') {
+              // TODO: Add snackbar
             }
+
+            Notifiers.screenDisplayNotifier.value =
+                screenValue + (buttonValue ?? '');
             break;
           default:
         }
