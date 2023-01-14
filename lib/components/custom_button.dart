@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
   final String? buttonValue;
   final Color? color;
 
-  List operators = ['+', '-', 'x', '/'];
+  final List operators = ['+', '-', 'x', '/'];
 
   @override
   Widget build(BuildContext context) {
