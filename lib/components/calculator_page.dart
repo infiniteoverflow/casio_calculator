@@ -66,13 +66,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           children: [
                             ...List.generate(
                               4,
-                              (index) => const Padding(
-                                padding: EdgeInsets.only(right: 5.0),
+                              (index) => Padding(
+                                padding: const EdgeInsets.only(right: 5.0),
                                 child: CustomButton(
                                   height: 25,
                                   width: 25,
                                   borderRadius: 0,
-                                  shadowOffset: Offset(2, 2),
+                                  shadowOffset: const Offset(2, 2),
                                   borderWidth: 2.0,
                                 ),
                               ),

@@ -1,9 +1,12 @@
 import 'package:casio_calculator/constants/app_constants.dart';
+import 'package:casio_calculator/constants/strings.dart';
 import 'package:casio_calculator/utils/notifiers.dart';
+import 'package:casio_calculator/utils/operations_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({
+  CustomButton({
     super.key,
     this.height,
     this.width,
@@ -26,23 +29,58 @@ class CustomButton extends StatelessWidget {
   final String? buttonValue;
   final Color? color;
 
+  List operators = ['+', '-', 'x', '/'];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        String screenValue = Notifiers.screenDisplayNotifier.value.toString();
+        String screenValue = Notifiers.screenDisplayNotifier.value;
 
         switch (buttonType) {
           case KeyTypes.action:
             if (buttonValue == 'AC') {
               Notifiers.screenDisplayNotifier.value = '';
+              Notifiers.historyDisplayNotifier.value.clear();
             }
             break;
           case KeyTypes.operator:
+            String displayValue = Notifiers.screenDisplayNotifier.value;
+            Notifiers.screenDisplayNotifier.value =
+                buttonValue == '=' ? '' : buttonValue;
+            Notifiers.historyDisplayNotifier.value.add(displayValue);
+
+            if (buttonValue == '=') {
+              Notifiers.screenDisplayNotifier.value = OperationUtil.total(
+                Notifiers.historyDisplayNotifier.value,
+              );
+              Notifiers.historyDisplayNotifier.value.clear();
+            } else {
+              Notifiers.historyDisplayNotifier.value.add(buttonValue!);
+            }
             break;
           case KeyTypes.digit:
+            if (operators.contains(Notifiers.screenDisplayNotifier.value)) {
+              screenValue = '';
+            }
             if (buttonValue == '.') {
-              // TODO: Add snackbar
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 2),
+                  content: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          Strings.decimalCtaMessage,
+                          style: GoogleFonts.roboto(
+                            fontSize: 17,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
             }
 
             Notifiers.screenDisplayNotifier.value =
