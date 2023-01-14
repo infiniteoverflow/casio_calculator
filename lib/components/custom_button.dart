@@ -1,5 +1,5 @@
-import 'package:casio_calculator/app_constants.dart';
-import 'package:casio_calculator/notifiers.dart';
+import 'package:casio_calculator/constants/app_constants.dart';
+import 'package:casio_calculator/utils/notifiers.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
